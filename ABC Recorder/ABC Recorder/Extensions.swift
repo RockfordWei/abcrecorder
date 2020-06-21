@@ -50,6 +50,7 @@ extension UserDefaults {
 	private static let encoder = JSONEncoder()
 	private static let decoder = JSONDecoder()
 
+	static let notification = Notification.Name(rawValue: "UserDefaultNotificationUpdate")
 	static func delete(record: ABCRecord) -> Bool {
 		let dayIndex = record.time_start.dayBegin()
 		var rec = records
@@ -88,6 +89,9 @@ extension UserDefaults {
 				NSLog("unable to save recordset: \(error)")
 			}
 		}
+	}
+	static var dates: [Date] {
+		return records.keys.map { $0 }.sorted { $0 > $1 }
 	}
 }
 
@@ -133,6 +137,15 @@ extension Date {
 		fmt.dateFormat = "yyyy-MM-dd HH:mm"
 		return fmt.string(from: self)
 	}
+	init(timestamp: String? = nil) {
+		let fmt = DateFormatter()
+		fmt.dateFormat = "yyyy-MM-dd HH:mm"
+		if let tm = timestamp {
+			self = fmt.date(from: tm) ?? Date()
+		} else {
+			self = Date()
+		}
+	}
 }
 
 extension UIViewController {
@@ -144,5 +157,11 @@ extension UIViewController {
 		text.returnKeyType = .continue
 		text.borderStyle = .roundedRect
 		return text
+	}
+}
+
+extension String {
+	var nullable: String? {
+		return self == "N/A" ? nil : self
 	}
 }

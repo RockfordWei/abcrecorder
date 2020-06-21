@@ -31,12 +31,25 @@ class FormViewController: UIViewController {
 
 	private let fieldStart = UIViewController.createTextField(placeholder: "START TIME")
 	private let fieldStop = UIViewController.createTextField(placeholder: "END TIME")
-
-
-	private var chain: [Int: UITextField] = [:]
+	private let fieldLocation = UIViewController.createTextField(placeholder: "Where were you and Client")
+	private let fieldClientBefore = UIViewController.createTextField(placeholder: "What was he/she doing/saying before the behaviour")
+	private let fieldReporterBefore = UIViewController.createTextField(placeholder: "What were you doing/saying before the behaviour")
+	private let fieldDoing = UIViewController.createTextField(placeholder: "What did he/she do?")
+	private let fieldSaying = UIViewController.createTextField(placeholder: "What did he/she say?")
+	private let fieldAction = UIViewController.createTextField(placeholder: "What did you do?")
+	private let fieldResponse = UIViewController.createTextField(placeholder: "What did you say?")
+	private var chain: [Int: UIView] = [:]
 	private var currentActiveTextField: UITextField? = nil
 
-	private func dig(upper: UITextField? = nil, lower: UITextField) {
+	private let buttonAdd: UIButton = {
+		let button = UIButton()
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.backgroundColor = .blue
+		button.titleLabel?.textColor = .white
+		return button
+	}()
+
+	private func dig(upper: UIView? = nil, lower: UIView) {
 		panel.addSubview(lower)
 		if let u = upper {
 			lower.topAnchor.constraint(equalTo: u.bottomAnchor, constant: 16).isActive = true
@@ -47,8 +60,13 @@ class FormViewController: UIViewController {
 		lower.heightAnchor.constraint(equalToConstant: 48).isActive = true
 		lower.centerXAnchor.constraint(equalTo: panel.centerXAnchor).isActive = true
 		lower.widthAnchor.constraint(equalTo: panel.widthAnchor).isActive = true
-		lower.delegate = self
+		if let text = lower as? UITextField {
+			text.delegate = self
+			text.returnKeyType = .continue
+		}
 	}
+
+	var record: ABCRecord? = nil
 
 	@objc func onClickInputDone(_ sender: UIBarButtonItem) {
 		if let active = currentActiveTextField {
@@ -60,10 +78,32 @@ class FormViewController: UIViewController {
 		}
 	}
 
+	@objc func onClickButtonAdd(_ sender: Any) {
+		var rec: ABCRecord
+		if let existing = record {
+			rec = existing
+			_ = UserDefaults.delete(record: existing)
+		} else {
+			rec = ABCRecord()
+		}
+		rec.time_start = Date(timestamp: fieldStart.text)
+		rec.time_end = Date(timestamp: fieldStop.text)
+		rec.location = fieldLocation.text ?? "N/A"
+		rec.precondition_client = fieldClientBefore.text ?? "N/A"
+		rec.precondition_reporter = fieldReporterBefore.text ?? "N/A"
+		rec.client_behaviour = fieldDoing.text ?? "N/A"
+		rec.client_saying = fieldSaying.text ?? "N/A"
+		rec.reporter_action = fieldAction.text ?? "N/A"
+		rec.reporter_saying = fieldResponse.text ?? "N/A"
+		UserDefaults.append(record: rec)
+		NotificationCenter.default.post(name: UserDefaults.notification, object: rec)
+		navigationController?.popViewController(animated: true)
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .white
-		navigationItem.title = "Add New Record"
+		navigationItem.title = record == nil ? "Add New Record" : "Edit Record"
 		view.addSubview(panel)
 		panel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		panel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32.0).isActive = true
@@ -82,16 +122,46 @@ class FormViewController: UIViewController {
 		fieldStop.inputAccessoryView = inputBar
 		dig(lower: fieldStart)
 		dig(upper: fieldStart, lower: fieldStop)
+		dig(upper: fieldStop, lower: fieldLocation)
+		dig(upper: fieldLocation, lower: fieldClientBefore)
+		dig(upper: fieldClientBefore, lower: fieldReporterBefore)
+		dig(upper: fieldReporterBefore, lower: fieldDoing)
+		dig(upper: fieldDoing, lower: fieldSaying)
+		dig(upper: fieldSaying, lower: fieldAction)
+		dig(upper: fieldAction, lower: fieldResponse)
+		dig(upper: fieldResponse, lower: buttonAdd)
+		buttonAdd.setTitle(record == nil ? "Add record" : "Update record", for: .normal)
+		buttonAdd.addTarget(self, action: #selector(onClickButtonAdd(_:)), for: .touchUpInside)
+		
+		if let rec = record {
+			fieldStart.text = rec.time_start.timestamp()
+			fieldStop.text = rec.time_end.timestamp()
+			fieldLocation.text = rec.location.nullable
+			fieldClientBefore.text = rec.precondition_client.nullable
+			fieldReporterBefore.text = rec.precondition_reporter.nullable
+			fieldDoing.text = rec.client_behaviour.nullable
+			fieldSaying.text = rec.client_saying.nullable
+			fieldAction.text = rec.reporter_action.nullable
+			fieldResponse.text = rec.reporter_saying.nullable
+		}
 	}
 }
 
 extension FormViewController: UITextFieldDelegate {
 	func textFieldDidBeginEditing(_ textField: UITextField) {
 		var anchor = textField.frame.origin
-		if anchor.y > view.bounds.height / 2.0 {
+		if anchor.y > view.bounds.height / 4.0 {
 			anchor.y -= view.bounds.height / 4.0
 			panel.contentOffset = anchor
 		}
 		currentActiveTextField = textField
+	}
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		let ret = textField.resignFirstResponder()
+		if let next = chain[textField.hashValue] as? UITextField {
+			_ = next.becomeFirstResponder()
+			textFieldDidBeginEditing(next)
+		}
+		return ret
 	}
 }

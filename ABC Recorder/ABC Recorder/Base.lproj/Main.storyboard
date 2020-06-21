@@ -16,12 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ipB-eG-qBO">
-                                <rect key="frame" x="0.0" y="44" width="320" height="388"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUs-kw-WlF">
                                 <rect key="frame" x="0.0" y="432" width="320" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="txL-Pi-LXc"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="All" id="YCx-74-VV8">
                                         <connections>
@@ -42,17 +41,20 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ipB-eG-qBO">
+                                <rect key="frame" x="0.0" y="44" width="320" height="388"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ipB-eG-qBO" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-48" id="1yD-fH-fdP"/>
-                            <constraint firstItem="sUs-kw-WlF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CjB-Jc-4Zw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sUs-kw-WlF" secondAttribute="bottom" id="HMG-pR-ISM"/>
-                            <constraint firstItem="ipB-eG-qBO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="WaE-uu-ulB"/>
-                            <constraint firstItem="sUs-kw-WlF" firstAttribute="top" secondItem="ipB-eG-qBO" secondAttribute="bottom" id="e6x-Mr-dDH"/>
-                            <constraint firstItem="sUs-kw-WlF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gse-ED-I7s"/>
-                            <constraint firstItem="ipB-eG-qBO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="saD-qH-p3P"/>
-                            <constraint firstItem="ipB-eG-qBO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xIR-Sb-Zxd"/>
+                            <constraint firstItem="ipB-eG-qBO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6X6-HY-o6S"/>
+                            <constraint firstItem="ipB-eG-qBO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7Of-Ah-ajw"/>
+                            <constraint firstItem="sUs-kw-WlF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LtZ-KY-mss"/>
+                            <constraint firstItem="ipB-eG-qBO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e2A-YY-UfI"/>
+                            <constraint firstItem="sUs-kw-WlF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hWI-wb-3RG"/>
+                            <constraint firstItem="sUs-kw-WlF" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="pV4-Yd-DMN"/>
+                            <constraint firstItem="sUs-kw-WlF" firstAttribute="top" secondItem="ipB-eG-qBO" secondAttribute="bottom" id="uoJ-5x-L6c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
