@@ -46,6 +46,12 @@ class ABCRecord: NSObject, Codable {
 
 extension UserDefaults {
 
+	static var build: String {
+		let ver = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+		let num = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+		return "\(ver).\(num)"
+	}
+	
 	private static let recordset = "abcrecordset"
 	private static let encoder = JSONEncoder()
 	private static let decoder = JSONDecoder()

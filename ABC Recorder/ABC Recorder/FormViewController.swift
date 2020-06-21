@@ -15,6 +15,7 @@ class FormViewController: UIViewController {
 		v.translatesAutoresizingMaskIntoConstraints = false
 		v.showsVerticalScrollIndicator = true
 		v.showsHorizontalScrollIndicator = false
+		v.backgroundColor = .clear
 		v.contentSize = CGSize(width: UIScreen.main.bounds.width - 32.0, height: UIScreen.main.bounds.height * 2)
 		return v
 	}()
@@ -44,7 +45,7 @@ class FormViewController: UIViewController {
 	private let buttonAdd: UIButton = {
 		let button = UIButton()
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.backgroundColor = .blue
+		button.backgroundColor = .systemBlue
 		button.titleLabel?.textColor = .white
 		return button
 	}()
@@ -104,7 +105,7 @@ class FormViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .white
+		view.backgroundColor = .pinkBackground
 		navigationItem.title = record == nil ? "Add New Record" : "Edit Record"
 		view.addSubview(panel)
 		panel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

@@ -64,7 +64,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wI4-Hb-Rdv"/>
+                    <navigationItem key="navigationItem" id="wI4-Hb-Rdv">
+                        <barButtonItem key="rightBarButtonItem" title="About" id="FrG-Ws-wgQ">
+                            <connections>
+                                <action selector="onClickAbout:" destination="BYZ-38-t0r" id="mdH-qC-dnz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableContent" destination="ipB-eG-qBO" id="aB4-Jl-7vR"/>
                     </connections>
@@ -79,7 +85,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YOE-uM-PGe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eRz-lU-Mcv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
