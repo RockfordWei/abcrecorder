@@ -86,8 +86,10 @@ class FormViewController: UIViewController {
 		} else {
 			rec = ABCRecord()
 		}
-		rec.time_start = Date(timestamp: fieldStart.text)
-		rec.time_end = Date(timestamp: fieldStop.text)
+		let adate = Date(timestamp: fieldStart.text)
+		let bdate = Date(timestamp: fieldStop.text)
+		rec.time_start = min(adate, bdate)
+		rec.time_end = max(adate, bdate)
 		rec.location = fieldLocation.text ?? "N/A"
 		rec.precondition_client = fieldClientBefore.text ?? "N/A"
 		rec.precondition_reporter = fieldReporterBefore.text ?? "N/A"

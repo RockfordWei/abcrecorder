@@ -158,6 +158,16 @@ extension UIViewController {
 		text.borderStyle = .roundedRect
 		return text
 	}
+	func showAlert(alertText : String, alertMessage : String, cancellation: ((UIAlertAction) -> Void)? = nil, completion: ((UIAlertAction) -> Void)? = nil) {
+		DispatchQueue.main.async {
+			let alert = UIAlertController(title: alertText, message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+			alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: completion))
+			if let cancel = cancellation {
+				alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: cancel))
+			}
+			self.present(alert, animated: true, completion: nil)
+		}
+	}
 }
 
 extension String {

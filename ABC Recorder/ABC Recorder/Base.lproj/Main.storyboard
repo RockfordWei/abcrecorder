@@ -34,6 +34,12 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xvH-Xl-kfH"/>
+                                    <barButtonItem title="Edit" id="FBA-Q9-n6T">
+                                        <connections>
+                                            <action selector="onClickEdit:" destination="BYZ-38-t0r" id="2jI-6C-zJe"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kcP-cd-UVc"/>
                                     <barButtonItem title="Add" id="3pi-ty-kbe">
                                         <connections>
                                             <action selector="onClickAdd:" destination="BYZ-38-t0r" id="ry3-o7-Gxe"/>
