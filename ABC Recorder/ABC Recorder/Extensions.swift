@@ -62,6 +62,9 @@ extension UserDefaults {
 		var rec = records
 		guard let section = rec[dayIndex] else { return false }
 		rec[dayIndex] = section.filter { $0.id != record.id }
+		if rec[dayIndex]?.isEmpty ?? true {
+			rec.removeValue(forKey: dayIndex)
+		}
 		records = rec
 		return true
 	}
