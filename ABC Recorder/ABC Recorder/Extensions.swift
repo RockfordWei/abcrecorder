@@ -42,6 +42,32 @@ class ABCRecord: NSObject, Codable {
 			reporter_action, reporter_saying
 		].map { "\"\($0)\""}.joined(separator: ",")
 	}
+	var html_row: String {
+		let html =
+		"""
+		<tr>
+			<td>
+				<p>DATE: <u>\(time_start.simple())</u></p>
+				<p>START TIME:<br/><u>\(time_start.timestamp())</u></p>
+				<p>END TIME:<br/><u>\(time_end.timestamp())</u></p>
+			</td>
+			<td>
+				<p><b>Where were you and Client?</b><br/>\(location)</p>
+				<p><b>What was he doing/saying before the behaviour</b><br/>\(precondition_client)</p>
+				<p><b>What were you doing/saying before the behaviour</b><br/>\(precondition_reporter)</p>
+			</td>
+			<td>
+				<p><b>What did he do?</b><br/>\(client_behaviour)</p>
+				<p><b>What did he say?</b><br/>\(client_saying)</p>
+			</td>
+			<td>
+				<p><b>What did you do?</b><br/>\(reporter_action)</p>
+				<p><b>What did you say?</b><br/>\(reporter_saying)</p>
+			</td>
+		</tr>
+		"""
+		return html
+	}
 }
 
 extension UserDefaults {
@@ -158,6 +184,14 @@ extension Date {
 }
 
 extension UIViewController {
+	static func createLabel(_ content: String) -> UILabel {
+		let text = UILabel()
+		text.translatesAutoresizingMaskIntoConstraints = false
+		text.text = content
+		text.numberOfLines = 0
+		return text
+	}
+	
 	static func createTextField(placeholder: String? = nil, defaultValue: String? = nil) -> UITextField {
 		let text = UITextField()
 		text.translatesAutoresizingMaskIntoConstraints = false

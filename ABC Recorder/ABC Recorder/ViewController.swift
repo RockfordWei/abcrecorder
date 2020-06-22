@@ -59,10 +59,26 @@ class ViewController: UIViewController {
 			return
 		}
 		let mail = MFMailComposeViewController()
-		mail.setSubject("ABC Recording Sheet")
+		mail.setSubject("ABC Recording Sheet - \(Date().simple(includingYear: false))")
 		mail.addAttachmentData(data as Data, mimeType: "text/csv" , fileName: "ABC_Recording_Sheet.csv")
+		let html_rows:[String] = indexPaths.compactMap { indexPath -> String? in
+			let date = UserDefaults.dates[indexPath.section]
+			if let rec = UserDefaults.records[date] {
+				return rec[indexPath.row].html_row
+			} else {
+				return nil
+			}
+		}
+
+		if let url = Bundle.main.url(forResource: "template", withExtension: "html"),
+			let templateData = try? Data(contentsOf: url, options: .uncached),
+			let template = String(bytes: templateData, encoding: .utf8) {
+			let html = template.replacingOccurrences(of: "<!--TBODY-->", with: html_rows.joined(separator: "\n"))
+			mail.setMessageBody(html, isHTML: true)
+		} else {
+			mail.setMessageBody("Hi, please check the attached csv file for the ABC Recording Sheet", isHTML: false)
+		}
 		mail.mailComposeDelegate = self
-		//add attachment
 		present(mail, animated: true)
 	}
 
@@ -159,5 +175,6 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: MFMailComposeViewControllerDelegate {
 	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
 		controller.dismiss(animated: true)
+		showAlert(alertText: "ABC Recording Sheet", alertMessage: "Mail sent.")
 	}
 }

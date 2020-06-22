@@ -15,6 +15,7 @@
 		319F4AE5249E616800FE0C3D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319F4AE4249E616800FE0C3D /* Extensions.swift */; };
 		319F4AE7249E91A700FE0C3D /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319F4AE6249E91A700FE0C3D /* FormViewController.swift */; };
 		319F4AED249FF01700FE0C3D /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319F4AEC249FF01700FE0C3D /* Styles.swift */; };
+		31B3861024A111340098DE21 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 31B3860E24A111200098DE21 /* template.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		319F4AE4249E616800FE0C3D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		319F4AE6249E91A700FE0C3D /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		319F4AEC249FF01700FE0C3D /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		31B3860E24A111200098DE21 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				319F4ADB249E59E100FE0C3D /* LaunchScreen.storyboard */,
 				319F4ADE249E59E100FE0C3D /* Info.plist */,
 				319F4AE4249E616800FE0C3D /* Extensions.swift */,
+				31B3860E24A111200098DE21 /* template.html */,
 				319F4AEC249FF01700FE0C3D /* Styles.swift */,
 			);
 			path = "ABC Recorder";
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31B3861024A111340098DE21 /* template.html in Resources */,
 				319F4ADD249E59E100FE0C3D /* LaunchScreen.storyboard in Resources */,
 				319F4ADA249E59E100FE0C3D /* Assets.xcassets in Resources */,
 				319F4AD8249E59DE00FE0C3D /* Main.storyboard in Resources */,

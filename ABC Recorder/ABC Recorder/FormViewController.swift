@@ -30,13 +30,17 @@ class FormViewController: UIViewController {
 		return picker
 	}()
 
+	private let sectionDateTime = UIViewController.createLabel("DATE/TIME")
 	private let fieldStart = UIViewController.createTextField(placeholder: "START TIME")
 	private let fieldStop = UIViewController.createTextField(placeholder: "END TIME")
+	private let sectionCondition = UIViewController.createLabel("PRE-CONDITION OR ANTECEDENT\n(What happened before the behaviour)")
 	private let fieldLocation = UIViewController.createTextField(placeholder: "Where were you and Client")
 	private let fieldClientBefore = UIViewController.createTextField(placeholder: "What was he/she doing/saying before the behaviour")
 	private let fieldReporterBefore = UIViewController.createTextField(placeholder: "What were you doing/saying before the behaviour")
+	private let sectionHappen = UIViewController.createLabel("WHAT BEHAVIOUR OCCURRED AND A\nDESCRIPTION OF WHAT YOU SAW & HEARD")
 	private let fieldDoing = UIViewController.createTextField(placeholder: "What did he/she do?")
 	private let fieldSaying = UIViewController.createTextField(placeholder: "What did he/she say?")
+	private let sectionResponse = UIViewController.createLabel("YOUR ACTIONS OR CONSEQUENSES\n(describe what you did and for how long)")
 	private let fieldAction = UIViewController.createTextField(placeholder: "What did you do?")
 	private let fieldResponse = UIViewController.createTextField(placeholder: "What did you say?")
 	private var chain: [Int: UIView] = [:]
@@ -54,7 +58,6 @@ class FormViewController: UIViewController {
 		panel.addSubview(lower)
 		if let u = upper {
 			lower.topAnchor.constraint(equalTo: u.bottomAnchor, constant: 16).isActive = true
-			chain[u.hashValue] = lower
 		} else {
 			lower.topAnchor.constraint(equalTo: panel.topAnchor, constant: 16).isActive = true
 		}
@@ -64,6 +67,9 @@ class FormViewController: UIViewController {
 		if let text = lower as? UITextField {
 			text.delegate = self
 			text.returnKeyType = .continue
+			text.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+		} else if let label = lower as? UILabel {
+			label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
 		}
 	}
 
@@ -123,16 +129,29 @@ class FormViewController: UIViewController {
 		fieldStart.inputAccessoryView = inputBar
 		fieldStop.inputView = datePicker
 		fieldStop.inputAccessoryView = inputBar
-		dig(lower: fieldStart)
+		dig(lower: sectionDateTime)
+		dig(upper: sectionDateTime, lower: fieldStart)
 		dig(upper: fieldStart, lower: fieldStop)
-		dig(upper: fieldStop, lower: fieldLocation)
+		dig(upper: fieldStop, lower: sectionCondition)
+		dig(upper: sectionCondition, lower: fieldLocation)
 		dig(upper: fieldLocation, lower: fieldClientBefore)
 		dig(upper: fieldClientBefore, lower: fieldReporterBefore)
-		dig(upper: fieldReporterBefore, lower: fieldDoing)
+		dig(upper: fieldReporterBefore, lower: sectionHappen)
+		dig(upper: sectionHappen, lower: fieldDoing)
 		dig(upper: fieldDoing, lower: fieldSaying)
-		dig(upper: fieldSaying, lower: fieldAction)
+		dig(upper: fieldSaying, lower: sectionResponse)
+		dig(upper: sectionResponse, lower: fieldAction)
 		dig(upper: fieldAction, lower: fieldResponse)
 		dig(upper: fieldResponse, lower: buttonAdd)
+
+		chain[fieldStart.hashValue] = fieldStop
+		chain[fieldStop.hashValue] = fieldLocation
+		chain[fieldLocation.hashValue] = fieldClientBefore
+		chain[fieldClientBefore.hashValue] = fieldReporterBefore
+		chain[fieldReporterBefore.hashValue] = fieldDoing
+		chain[fieldDoing.hashValue] = fieldSaying
+		chain[fieldSaying.hashValue] = fieldAction
+		chain[fieldAction.hashValue] = fieldResponse
 		buttonAdd.setTitle(record == nil ? "Add record" : "Update record", for: .normal)
 		buttonAdd.addTarget(self, action: #selector(onClickButtonAdd(_:)), for: .touchUpInside)
 		
