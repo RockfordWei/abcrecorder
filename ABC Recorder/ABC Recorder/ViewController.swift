@@ -93,6 +93,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.title = "ABC Recording Sheet"
+		view.backgroundColor = .pinkBackground
 		tableContent.backgroundColor = .pinkBackground
 		tableContent.dataSource = self
 		tableContent.delegate = self

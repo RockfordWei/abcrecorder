@@ -20,7 +20,7 @@ extension UIColor {
 		let red = netHex.hex(16)
 		let green = netHex.hex(8)
 		let blue = netHex.hex()
-		self.init(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: alpha)
+		self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: alpha)
 	}
 	static let darkblue = UIColor(netHex: 0x1B5996)
 	static let pinkBackground = UIColor(netHex: 0xF2F0F1)
