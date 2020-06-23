@@ -20,9 +20,7 @@ class ABCRecord: NSObject, Codable {
 	var client_saying = ""
 	var reporter_action = ""
 	var reporter_saying = ""
-	var row: String {
-		return ""
-	}
+
 	static var header: String {
 		let head: [String] = [
 			"id", "start time", "end time", "Where were you and Client?",
