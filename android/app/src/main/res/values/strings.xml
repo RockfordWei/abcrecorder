@@ -10,4 +10,15 @@
     <string name="text_date_time">DATE/TIME</string>
     <string name="text_start_time">START TIME</string>
     <string name="text_end_time">END TIME</string>
+    <string name="text_pre_condition_section">PRE-CONDITION OR ANTECEDENT\n(What happened before the behaviour)</string>
+    <string name="hint_location">Where were you and Client</string>
+    <string name="hint_pre_client">What was he/she doing/saying before the behaviour</string>
+    <string name="hint_pre_reporter">What were you doing/saying before the behaviour</string>
+    <string name="hint_incident_section"><![CDATA[WHAT BEHAVIOUR OCCURRED AND A\nDESCRIPTION OF WHAT YOU SAW & HEARD]]></string>
+    <string name="hint_doing">What did he/she do?</string>
+    <string name="hint_saying">What did he/she say?</string>
+    <string name="text_response_section">YOUR ACTIONS OR CONSEQUENSES\n(describe what you did and for how long)</string>
+    <string name="hint_reporter_action">What did you do?</string>
+    <string name="hint_reporter_response">What did you say?</string>
+    <string name="button_add_record">Add a new record</string>
 </resources>

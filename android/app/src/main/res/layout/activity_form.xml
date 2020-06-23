@@ -15,6 +15,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/text_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -32,6 +33,94 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/text_end_time"
                 android:inputType="datetime" />
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/text_pre_condition_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textLocation"
+                android:hint="@string/hint_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:inputType="textAutoCorrect" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textPreClient"
+                android:hint="@string/hint_pre_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textPreReporter"
+                android:hint="@string/hint_pre_reporter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/hint_incident_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textClientDoing"
+                android:hint="@string/hint_doing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textClientSaying"
+                android:hint="@string/hint_saying"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/text_response_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textReporterAction"
+                android:hint="@string/hint_reporter_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:id="@+id/textReporterResponse"
+                android:hint="@string/hint_reporter_response"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="N/A"
+                android:textSize="16sp"
+                android:inputType="textAutoCorrect" />
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:text="@string/button_add_record"
+                android:textColor="@color/colorBackground"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
