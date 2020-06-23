@@ -7,4 +7,7 @@
     <string name="button_text_edit">Edit</string>
     <string name="button_text_delete">Delete</string>
     <string name="button_text_mail">Mail</string>
+    <string name="text_date_time">DATE/TIME</string>
+    <string name="text_start_time">START TIME</string>
+    <string name="text_end_time">END TIME</string>
 </resources>
