@@ -19,13 +19,13 @@ data class ABCRecord (
 ): Parcelable {
 
     companion object {
-        val header: String =
-            ["id", "start time", "end time", "Where were you and Client?",
+        val csv_header: String = listOf(
+            "id", "start time", "end time", "Where were you and Client?",
             "What was he doing/saying before the behaviour?",
             "What were you doing/saying before the behaviour?",
             "What did he do?", "What did he say?",
-            "What did you do?", "Waht did you say?"]
-                .map { "\"$it\"" }.joinToString(",")
+            "What did you do?", "Waht did you say?")
+            .map { "\"$it\"" }.joinToString(",")
     }
     val csv_row: String
     get() = listOf(id.toString(), time_start.toString(), time_end.toString(),

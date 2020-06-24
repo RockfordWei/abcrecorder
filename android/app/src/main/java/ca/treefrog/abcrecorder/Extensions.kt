@@ -1,5 +1,6 @@
 package ca.treefrog.abcrecorder
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun Date.begin(): Date {
@@ -10,4 +11,14 @@ fun Date.begin(): Date {
     cal.set(Calendar.SECOND, 0)
     cal.set(Calendar.MILLISECOND, 0)
     return cal.time
+}
+
+fun Date.toFormattedString(format: String = "yyyy-MM-dd HH:mm"): String {
+    val fmt = SimpleDateFormat(format, Locale.getDefault())
+    return fmt.format(this)
+}
+
+fun String.toTimestamp(format: String = "yyyy-MM-dd HH:mm"): Date {
+    val fmt = SimpleDateFormat(format, Locale.getDefault())
+    return fmt.parse(this)?:Date()
 }

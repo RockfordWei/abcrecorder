@@ -1,15 +1,22 @@
 package ca.treefrog.abcrecorder
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        buttonAdd.setOnClickListener {
+            val intent = Intent(this, FormActivity::class.java)
+            startActivityForResult(intent, UserDefault.RECORD_UPDATE)
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.about, menu)
@@ -25,5 +32,12 @@ class MainActivity : AppCompatActivity() {
                 }
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == UserDefault.RECORD_UPDATE) {
+            Log.d("DEBUG", "data table reload")
+        }
     }
 }

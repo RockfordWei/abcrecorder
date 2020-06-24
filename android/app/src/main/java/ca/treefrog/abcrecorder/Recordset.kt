@@ -31,4 +31,7 @@ data class Recordset(var records: MutableMap<Date, MutableList<ABCRecord>>): Par
             return
         }
     }
+    fun get(id: UUID): ABCRecord? {
+        return records.values.flatMap { it }.first { it.id == id }
+    }
 }

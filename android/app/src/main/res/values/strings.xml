@@ -8,8 +8,8 @@
     <string name="button_text_delete">Delete</string>
     <string name="button_text_mail">Mail</string>
     <string name="text_date_time">DATE/TIME</string>
-    <string name="text_start_time">START TIME</string>
-    <string name="text_end_time">END TIME</string>
+    <string name="text_start_time">START TIME (yyyy-MM-dd HH:mm)</string>
+    <string name="text_end_time">END TIME (yyyy-MM-dd HH:mm)</string>
     <string name="text_pre_condition_section">PRE-CONDITION OR ANTECEDENT\n(What happened before the behaviour)</string>
     <string name="hint_location">Where were you and Client</string>
     <string name="hint_pre_client">What was he/she doing/saying before the behaviour</string>
@@ -21,4 +21,5 @@
     <string name="hint_reporter_action">What did you do?</string>
     <string name="hint_reporter_response">What did you say?</string>
     <string name="button_add_record">Add a new record</string>
+    <string name="button_update_record">Update record</string>
 </resources>
