@@ -17,6 +17,16 @@ data class ABCRecord (
     var reporter_action: String = "",
     var reporter_saying: String = ""
 ): Parcelable {
+
+    companion object {
+        val header: String =
+            ["id", "start time", "end time", "Where were you and Client?",
+            "What was he doing/saying before the behaviour?",
+            "What were you doing/saying before the behaviour?",
+            "What did he do?", "What did he say?",
+            "What did you do?", "Waht did you say?"]
+                .map { "\"$it\"" }.joinToString(",")
+    }
     val csv_row: String
     get() = listOf(id.toString(), time_start.toString(), time_end.toString(),
         location, precondition_client, precondition_reporter, client_behaviour, client_saying,
