@@ -31,22 +31,35 @@ class UserDefault(context: Context) {
         return null
     }
     private fun save(recordset: Recordset) {
-        gson.toJson(recordset)?.let { standard.edit().putString(_RECORDSET, it).apply() }
+        gson.toJson(recordset)?.let {
+            Log.d("SAVING", it)
+            standard.edit().putString(_RECORDSET, it).apply()
+            return
+        }
+        Log.d("DEBUG", "gson save failure")
     }
 
-    val recordset = load()?: Recordset(mutableMapOf())
+    var recordset: Recordset
+        get() = load()?: Recordset(mutableListOf())
+        set(newValue) = save(newValue)
 
     fun get(id: UUID): ABCRecord? {
         return recordset.get(id)
     }
 
     fun update(record: ABCRecord) {
-        recordset.update(record)
-        save(recordset)
+        val rec = recordset
+        rec.update(record)
+        save(rec)
+        recordset = rec
     }
 
-    fun delete(record: ABCRecord) {
-        recordset.delete(record)
-        save(recordset)
+    fun delete(id: UUID) {
+        val rec = recordset
+        rec.records.firstOrNull { it.id == id }?.let {
+            rec.delete(it)
+            save(rec)
+            recordset = rec
+        }
     }
 }

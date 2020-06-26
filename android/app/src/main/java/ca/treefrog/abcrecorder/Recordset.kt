@@ -5,33 +5,34 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class Recordset(var records: MutableMap<Date, MutableList<ABCRecord>>): Parcelable {
+data class Recordset(var records: MutableList<ABCRecord>): Parcelable {
     fun update(record: ABCRecord) {
-        val key = record.time_start.begin()
-        records[key]?.let { list ->
-            val index = list.indexOfFirst { it.id == record.id }
-            if (index >= 0) {
-                list.removeAt(index)
-            }
-            list.add(record)
-            list.sortedByDescending { it.time_start }
-            records[key] = list
-            return
-        }
-        records[key] = mutableListOf(record)
+        delete(record)
+        records.add(record)
     }
     fun delete(record: ABCRecord) {
-        val key = record.time_start.begin()
-        records[key]?.let { list ->
-            val index = list.indexOfFirst { it.id == record.id }
-            if (index >= 0) {
-                list.removeAt(index)
-            }
-            records[key] = list
-            return
+        val index = records.indexOfFirst { it.id == record.id }
+        if (index >= 0) {
+            records.removeAt(index)
         }
     }
     fun get(id: UUID): ABCRecord? {
-        return records.values.flatMap { it }.first { it.id == id }
+        val index = records.indexOfFirst { it.id == id }
+        return if (index < 0) null else records[index]
+    }
+    fun presentation(): List<Presentable> {
+        val groups = records.groupBy { it.time_start.begin() }
+        val items = mutableListOf<Presentable>()
+        groups.keys.forEach { date ->
+            groups[date]?.let {
+                items.add(Presentable(null, date.toDateString(), null))
+                it.sortedByDescending { it.time_start }.forEach {
+                    items.add(Presentable(it.id, it.client_behaviour, it.time_start.toHourString()))
+                }
+            }
+        }
+        return items
     }
 }
+
+data class Presentable(val id: UUID?, val text: String, val detail: String?)

@@ -22,4 +22,6 @@
     <string name="hint_reporter_response">What did you say?</string>
     <string name="button_add_record">Add a new record</string>
     <string name="button_update_record">Update record</string>
+    <string name="text_section_header">Section Header</string>
+    <string name="text_label">%s: %s</string>
 </resources>

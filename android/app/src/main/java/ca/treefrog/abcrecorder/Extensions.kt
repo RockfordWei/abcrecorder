@@ -18,6 +18,14 @@ fun Date.toFormattedString(format: String = "yyyy-MM-dd HH:mm"): String {
     return fmt.format(this)
 }
 
+fun Date.toDateString(): String {
+    return toFormattedString("yyyy-MM-dd")
+}
+
+fun Date.toHourString(): String {
+    return toFormattedString("HH:mm")
+}
+
 fun String.toTimestamp(format: String = "yyyy-MM-dd HH:mm"): Date {
     val fmt = SimpleDateFormat(format, Locale.getDefault())
     return fmt.parse(this)?:Date()

@@ -1,7 +1,9 @@
 package ca.treefrog.abcrecorder
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_form.*
 import java.util.*
@@ -51,8 +53,14 @@ class FormActivity: AppCompatActivity() {
             record.client_saying = textClientSaying.text.toString()
             record.reporter_action = textReporterAction.text.toString()
             record.reporter_saying = textReporterResponse.text.toString()
-            default.update(record)
-            finishActivity(UserDefault.RECORD_UPDATE)
+            try {
+                default.update(record)
+            } catch (error: Exception) {
+                Toast.makeText(this, "Update Failed", Toast.LENGTH_LONG).show()
+                Log.d("DEBUG", error.toString())
+            }
+            setResult(UserDefault.RECORD_UPDATE)
+            finish()
         }
     }
 
