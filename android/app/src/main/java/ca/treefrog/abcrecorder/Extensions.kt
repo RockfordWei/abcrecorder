@@ -1,5 +1,7 @@
 package ca.treefrog.abcrecorder
 
+import android.app.Dialog
+import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,4 +31,24 @@ fun Date.toHourString(): String {
 fun String.toTimestamp(format: String = "yyyy-MM-dd HH:mm"): Date {
     val fmt = SimpleDateFormat(format, Locale.getDefault())
     return fmt.parse(this)?:Date()
+}
+
+fun Dialog.confirm(title: String? = null, message: String? = null, ok: ()-> Unit) {
+    setContentView(R.layout.dialog_ok_cancel)
+    title?.let {
+        val textDialogTitle = findViewById<TextView>(R.id.textDialogTitle)
+        textDialogTitle.text = it
+    }
+    message?.let {
+        val textDialogContent = findViewById<TextView>(R.id.textDialogContent)
+        textDialogContent.text = it
+    }
+    val buttonOk = findViewById<android.widget.Button>(R.id.buttonDialogOK)
+    val buttonCancel = findViewById<android.widget.Button>(R.id.buttonDialogCancel)
+    buttonCancel.setOnClickListener { dismiss() }
+    buttonOk.setOnClickListener {
+        dismiss()
+        ok()
+    }
+    show()
 }

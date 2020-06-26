@@ -24,4 +24,7 @@
     <string name="button_update_record">Update record</string>
     <string name="text_section_header">Section Header</string>
     <string name="text_label">%s: %s</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_ok">OK</string>
+    <string name="text_deletion_confirmation">Confirm to delete these records? The operation cannot be recovered.</string>
 </resources>

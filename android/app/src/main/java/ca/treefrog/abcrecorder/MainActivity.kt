@@ -1,5 +1,6 @@
 package ca.treefrog.abcrecorder
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,11 +40,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonDelete.setOnClickListener {
-            
-            adapter.selection.forEach {
-                default.delete(it)
+
+            Dialog(this).confirm {
+                adapter.selection.forEach {
+                    default.delete(it)
+                }
+                reload()
             }
-            reload()
         }
 
         buttonAll.setOnClickListener {
