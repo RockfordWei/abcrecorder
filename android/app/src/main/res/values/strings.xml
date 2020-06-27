@@ -5,7 +5,7 @@
     <string name="button_text_all">All</string>
     <string name="button_text_add">Add</string>
     <string name="button_text_edit">Edit</string>
-    <string name="button_text_delete">Delete</string>
+    <string name="button_text_delete">Del</string>
     <string name="button_text_mail">Mail</string>
     <string name="text_date_time">DATE/TIME</string>
     <string name="text_start_time">START TIME (yyyy-MM-dd HH:mm)</string>
@@ -27,4 +27,6 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_ok">OK</string>
     <string name="text_deletion_confirmation">Confirm to delete these records? The operation cannot be recovered.</string>
+    <string name="text_selection">Please select one or more records to continue.</string>
+    <string name="text_mail_title">ABC Recording Sheet %s</string>
 </resources>

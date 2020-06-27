@@ -25,7 +25,7 @@ data class ABCRecord (
             "What were you doing/saying before the behaviour?",
             "What did he do?", "What did he say?",
             "What did you do?", "Waht did you say?")
-            .map { "\"$it\"" }.joinToString(",")
+            .map { "\"$it\"" }.joinToString(",") + "\n"
     }
     val csv_row: String
     get() = listOf(id.toString(), time_start.toString(), time_end.toString(),
@@ -36,9 +36,9 @@ data class ABCRecord (
         """
 		<tr>
 			<td>
-				<p>DATE: <u>$time_start</u></p>
-				<p>START TIME:<br/><u>$time_start</u></p>
-				<p>END TIME:<br/><u>$time_end</u></p>
+				<p>DATE: <u>${time_start.toDateString()}</u></p>
+				<p>START TIME:<br/><u>${time_start.toHourString()}</u></p>
+				<p>END TIME:<br/><u>${time_end.toHourString()}</u></p>
 			</td>
 			<td>
 				<p><b>Where were you and Client?</b><br/>\(location)</p>

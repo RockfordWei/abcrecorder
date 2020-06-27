@@ -2,15 +2,23 @@ package ca.treefrog.abcrecorder
 
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
+import java.io.OutputStream
+import java.lang.Exception
+import java.nio.charset.Charset
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonEdit.setOnClickListener {
             if (adapter.selection.isEmpty()) {
+                Dialog(this).alert()
                 return@setOnClickListener
             }
             val id = adapter.selection.first()
@@ -40,7 +49,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonDelete.setOnClickListener {
-
+            if (adapter.selection.isEmpty()) {
+                Dialog(this).alert()
+                return@setOnClickListener
+            }
             Dialog(this).confirm {
                 adapter.selection.forEach {
                     default.delete(it)
@@ -52,6 +64,57 @@ class MainActivity : AppCompatActivity() {
         buttonAll.setOnClickListener {
             adapter.selection = if (adapter.selection.isEmpty()) default.recordset.records.map { it.id }.toMutableSet() else mutableSetOf()
             adapter.notifyDataSetChanged()
+        }
+
+        buttonMail.setOnClickListener {
+            if (adapter.selection.isEmpty()) {
+                Dialog(this).alert()
+                return@setOnClickListener
+            }
+            loadAsset("template.html")?.let { template ->
+                val records = default.recordset.records
+                    .filter { adapter.selection.contains(it.id) }
+                    .sortedByDescending { it.time_start }
+                //val rows = records.map { it.html_row }.joinToString("\n")
+                //val html = template.replace("<!--TBODY-->", rows)
+                val csv_body = ABCRecord.csv_header + records.map { it.csv_row }.joinToString("\n")
+
+
+                val folder = File(filesDir, "/")
+                if (!folder.exists()) {
+                    folder.mkdir()
+                }
+                val csvFile = File(folder.path, "abc_record.csv")
+                csvFile.writeText(csv_body, Charset.defaultCharset())
+
+                val csvUri = FileProvider.getUriForFile(this, "ca.treefrog.abcrecorder.fileprovider", csvFile)
+                val intent = Intent(Intent.ACTION_SEND)
+
+                val mimeTypes = arrayOf("text/csv")
+                intent.setType("vnd.android.cursor.dir/email");
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_mail_title, Date().toFormattedString()))
+                //intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(html))
+                intent.putExtra(Intent.EXTRA_STREAM, csvUri)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun loadAsset(fileName: String): String? {
+        try {
+            val inputStream = assets.open(fileName)
+            val size = inputStream.available()
+            if (size < 1) return null
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            return String(buffer, Charset.defaultCharset())
+        } catch (error: Exception) {
+            Log.d("DEBUG", error.toString())
+            return null
         }
     }
 

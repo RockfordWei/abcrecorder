@@ -52,3 +52,16 @@ fun Dialog.confirm(title: String? = null, message: String? = null, ok: ()-> Unit
     }
     show()
 }
+
+fun Dialog.alert(message: String? = null) {
+    setContentView(R.layout.dialog_ok)
+    message?.let {
+        val textDialogContent = findViewById<TextView>(R.id.textDialogOKContent)
+        textDialogContent.text = it
+    }
+    val buttonOk = findViewById<android.widget.Button>(R.id.buttonDialogAlertOK)
+    buttonOk.setOnClickListener {
+        dismiss()
+    }
+    show()
+}
