@@ -41,7 +41,7 @@ data class ABCRecord (
 				<p>END TIME:<br/><u>${time_end.toHourString()}</u></p>
 			</td>
 			<td>
-				<p><b>Where were you and Client?</b><br/>\(location)</p>
+				<p><b>Where were you and Client?</b><br/>$location</p>
 				<p><b>What was he doing/saying before the behaviour</b><br/>$precondition_client</p>
 				<p><b>What were you doing/saying before the behaviour</b><br/>$precondition_reporter</p>
 			</td>

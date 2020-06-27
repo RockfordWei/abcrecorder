@@ -62,7 +62,7 @@ class RecordAdapter(private val records: List<Presentable>) : RecyclerView.Adapt
             }
             checkbox.setOnCheckedChangeListener { _, isChecked ->
                 records[position].id?.let { id ->
-                    if (checkbox.isChecked) {
+                    if (isChecked) {
                         selection.add(id)
                     } else {
                         selection.remove(id)

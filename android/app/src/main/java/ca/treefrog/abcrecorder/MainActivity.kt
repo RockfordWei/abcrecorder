@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity() {
                 val records = default.recordset.records
                     .filter { adapter.selection.contains(it.id) }
                     .sortedByDescending { it.time_start }
-                //val rows = records.map { it.html_row }.joinToString("\n")
-                //val html = template.replace("<!--TBODY-->", rows)
+                val rows = records.map { it.html_row }.joinToString("\n")
+                val html = template.replace("<!--TBODY-->", rows)
                 val csv_body = ABCRecord.csv_header + records.map { it.csv_row }.joinToString("\n")
 
 
@@ -87,15 +87,20 @@ class MainActivity : AppCompatActivity() {
                 val csvFile = File(folder.path, "abc_record.csv")
                 csvFile.writeText(csv_body, Charset.defaultCharset())
 
-                val csvUri = FileProvider.getUriForFile(this, "ca.treefrog.abcrecorder.fileprovider", csvFile)
-                val intent = Intent(Intent.ACTION_SEND)
+                val htmFile = File(folder.path, "abc_record.htm")
+                htmFile.writeText(html, Charset.defaultCharset())
 
-                val mimeTypes = arrayOf("text/csv")
+                val csvUri = FileProvider.getUriForFile(this, "ca.treefrog.abcrecorder.fileprovider", csvFile)
+                val htmUri = FileProvider.getUriForFile(this, "ca.treefrog.abcrecorder.fileprovider", htmFile)
+                val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
+
+                val mimeTypes = arrayOf("text/csv", "text/html")
                 intent.setType("vnd.android.cursor.dir/email");
                 intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_mail_title, Date().toFormattedString()))
-                //intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(html))
-                intent.putExtra(Intent.EXTRA_STREAM, csvUri)
+
+                val uriList = arrayListOf(csvUri, htmUri)
+                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent)
